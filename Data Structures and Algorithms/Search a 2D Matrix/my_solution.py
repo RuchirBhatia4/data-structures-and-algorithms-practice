@@ -1,19 +1,22 @@
-import numpy as np
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        if target == matrix[0][0]:
-            return True
-        list_2d = np.array(matrix)
-        l = list_2d.flatten()
+        m = len(matrix)
+        n = len(matrix[0])
+
         left = 0
-        right  = len(l)-1
-        while left < right:
+        right = m * n - 1
+
+        while left <= right:
             mid = (left + right) // 2
-            if target == l[mid] or target == l[right]:
+
+            row = mid // n
+            col = mid % n
+
+            if matrix[row][col] == target:
                 return True
-            elif target < l[mid]:
-                right = mid
+            elif target < matrix[row][col]:
+                right = mid - 1
             else:
                 left = mid + 1
-        return False
 
+        return False
